@@ -1,6 +1,6 @@
 {
     "name": "node-rotating-logs",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Node 程序的滚动文件日志，和非滚动文件以及控制台日志的简单实现",
     "main": "index.js",
     "scripts": {

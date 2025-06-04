@@ -14,15 +14,16 @@ function createLogger(name, options) {
         hasConsole: true,
         executor: 'Worker',
         executorOptions: {
-            ttl: 60 * 1000,
-            metedata: {}
-            // logFile: 'executor',
-            // logPath: this.path
+            ttl: 10 * 1000,
+            metedata: {},
+            logFile: 'exector',
+            logPath: this.path
         }
     }
     merge(opts, options)
     if (!logger) {
         const path = join(__dirname, './src/logger.js')
+        console.log("调用一次")
         logger = requireScript(path, opts.executor, opts.executorOptions)
     }
     return {
@@ -37,9 +38,9 @@ function createLogger(name, options) {
                 hasConsole: opts.hasConsole
             }
             if (opts.isRotating) {
-                return logger.appendRotatingFile(opts.path, opts.name, level, text, other)
+                return logger.appendRotatingFile(opts.path, opts.name, level, text, other, true)
             } else {
-                return logger.appendFile(opts.path, opts.name, level, text, other)
+                return logger.appendFile(opts.path, opts.name, level, text, other, true)
             }
         },
         async info(msg, ...args) {

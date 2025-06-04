@@ -1,20 +1,30 @@
 {
     "name": "node-rotating-logs",
     "version": "1.0.0",
-    "description": "文件上传的服务端实现和浏览器实现",
+    "description": "Node 程序的滚动文件日志，和非滚动文件以及控制台日志的简单实现",
     "main": "index.js",
     "scripts": {
-        "test": "node ./utils/object.js"
+        "test": "node ./test/log.test.js"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "keywords": [
+        "rotating-file",
+        "process",
+        "worker",
+        "log",
+        "console"
+    ],
+    "repository": {
+        "type": "github",
+        "url": "git@github.com:Mr-Fubowen/node-rotating-logs.git"
+    },
+    "author": "Fubowen",
+    "license": "MIT",
     "dependencies": {
         "colors-console": "^1.0.3",
         "date-fns": "^4.1.0",
         "fs-extra": "^11.3.0",
         "lodash": "^4.17.21",
-        "process-worker-executor": "^1.0.7",
+        "process-worker-executor": "^1.0.9",
         "rotating-file-stream": "^3.2.6"
     }
 }

@@ -1,0 +1,1 @@
+{"level":30,"time":1749031834356,"pid":17652,"prop":"appendRotatingFile","args":["D:\\about-me\\@fubowen\\node-rotating-logs\\logs","app","INF","123456",{"hasConsole":true}],"duration":"6 ms"}

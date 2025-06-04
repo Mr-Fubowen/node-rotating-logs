@@ -14,7 +14,7 @@ function createLogger(name, options) {
         hasConsole: true,
         executor: 'Worker',
         executorOptions: {
-            ttl: 10 * 1000,
+            ttl: 60 * 1000,
             metedata: {},
             logFile: 'exector',
             logPath: this.path
@@ -23,7 +23,6 @@ function createLogger(name, options) {
     merge(opts, options)
     if (!logger) {
         const path = join(__dirname, './src/logger.js')
-        console.log("调用一次")
         logger = requireScript(path, opts.executor, opts.executorOptions)
     }
     return {

@@ -7,96 +7,147 @@ export interface LoggerOptions {
      * 调试模式，启用调试模式后 log.debug() 函数会输出调试信息
      * @default false
      */
-    debug?: Boolean
+    debug?: boolean
+
     /**
      * 可通过环境变量赋值 NODE_LOG_PATH
      * 优先级：默认值 < NODE_LOG_PATH < 手动传递
-     * @default path.join(process.cwd(),'logs')
+     * @default path.join(process.cwd(), 'logs')
      */
-    path?: String
+    path?: string
+
     /**
      * 可通过环境变量赋值 NODE_LOG_NAME
      * 优先级：默认值 < NODE_LOG_NAME < 手动传递
-     * @default app
+     * @default 'app'
      */
-    name?: String
+    name?: string
+
     /**
+     * 是否开启日志文件归档（轮转）
      * @default true
      */
-    isRotating?: Boolean
+    isRotating?: boolean
+
     /**
-     * 打印控制台
+     * 是否打印到控制台
      * @default true
      */
-    hasConsole?: Boolean
+    hasConsole?: boolean
+
     /**
      * 后台采用线程还是进程执行
-     * @default Worker
+     * @default 'Worker'（需要确认 `Executor` 类型定义是否支持字符串，建议使用正确的类型）
      */
     executor?: Executor
+
     /**
-     * 请注意，默认的情况下 logPath 和 logFile 有默认值，因此会输出
-     * exector.txt，exector-client.txt 日志，可以传递 null 禁用 exector 的日志输出
-     * @default {
-     *     ttl: 60 * 1000,
-     *     metedata: {},
-     *     logFile: 'executor',
-     *     logPath: path
-     *  }
+     * 日志执行器相关配置
+     * 默认配置示例：
+     * {
+     *   ttl: 60 * 1000,
+     *   metadata: {},
+     *   logFile: 'executor',
+     *   logPath: path
+     * }
+     * 可以传递 logPath：null，logFile：null 禁用此日志输出
      */
     executorOptions?: ExecutorOptions
 }
+
 export interface Logger {
-    info(msg: String, ...args: unknown[] | {}): Promise
-    error(msg: String, ...args: unknown[] | {}): Promise
-    warning(msg: String, ...args: unknown[] | {}): Promise
-    debug(msg: String, ...args: unknown[] | {}): Promise
+    /**
+     * 输出信息级别日志
+     * @param msg 日志文本
+     * @param args 参数列表或对象
+     * @returns Promise<void>
+     */
+    info(msg: string, ...args: unknown[]): Promise<void>
+    info(msg: string, args: object): Promise<void>
+
+    /**
+     * 输出错误级别日志
+     * @param msg 日志文本
+     * @param args 参数列表或对象
+     * @returns Promise<void>
+     */
+    error(msg: string, ...args: unknown[]): Promise<void>
+    error(msg: string, args: object): Promise<void>
+
+    /**
+     * 输出警告级别日志
+     * @param msg 日志文本
+     * @param args 参数列表或对象
+     * @returns Promise<void>
+     */
+    warning(msg: string, ...args: unknown[]): Promise<void>
+    warning(msg: string, args: object): Promise<void>
+
+    /**
+     * 输出调试信息
+     * @param msg 日志文本
+     * @param args 参数列表或对象
+     * @returns Promise<void>
+     */
+    debug(msg: string, ...args: unknown[]): Promise<void>
+    debug(msg: string, args: object): Promise<void>
 }
+
+/**
+ * 创建一个日志实例
+ * @param options 配置项
+ * @returns Logger实例
+ */
 export declare function createLogger(options: LoggerOptions): Logger
+
 /**
- *
- * @example log.info('这是一个示例日志')
- * @example log.info('这是一个示例日志,%s-%s','占位符参数','占位符参数')
- * @example log.info('这是一个示例日志,{{name}}',{name: '占位符参数'})
- * @param msg 日志文本
- * @param args 参数列表或者对象
+ * 以多种方式记录日志
+ * @example
+ * log.info('这是一个示例日志')
+ * log.info('这是一个示例日志,%s-%s', '占位符参数', '占位符参数')
+ * log.info('这是一个示例日志,{{name}}', { name: '占位符参数' })
  */
-export declare function info(msg: String, ...args: unknown[] | {}): Promise
+export declare function info(msg: string, ...args: unknown[]): Promise<void>
+export declare function info(msg: string, args: object): Promise<void>
+
 /**
- *
- * @example log.error('这是一个示例日志')
- * @example log.error('这是一个示例日志,%s-%s','占位符参数','占位符参数')
- * @example log.error('这是一个示例日志,{{name}}',{name: '占位符参数'})
- * @param msg 日志文本
- * @param args 参数列表或者对象
+ * 以多种方式记录错误日志
+ * @example
+ * log.error('这是一个示例日志')
+ * log.error('这是一个示例日志,%s-%s', '占位符参数', '占位符参数')
+ * log.error('这是一个示例日志,{{name}}', { name: '占位符参数' })
  */
-export declare function error(msg: String, ...args: unknown[] | {}): Promise
+export declare function error(msg: string, ...args: unknown[]): Promise<void>
+export declare function error(msg: string, args: object): Promise<void>
+
 /**
- *
- * @example log.warning('这是一个示例日志')
- * @example log.warning('这是一个示例日志,%s-%s','占位符参数','占位符参数')
- * @example log.warning('这是一个示例日志,{{name}}',{name: '占位符参数'})
- * @param msg 日志文本
- * @param args 参数列表或者对象
+ * 以多种方式记录警告日志
+ * @example
+ * warning('这是一个示例日志')
+ * warning('这是一个示例日志,%s-%s', '占位符参数', '占位符参数')
+ * warning('这是一个示例日志,{{name}}', { name: '占位符参数' })
  */
-export declare function warning(msg: String, ...args: unknown[] | {}): Promise
+export declare function warning(msg: string, ...args: unknown[]): Promise<void>
+export declare function warning(msg: string, args: object): Promise<void>
+
 /**
- *
- * @example log.debug('这是一个示例日志')
- * @example log.debug('这是一个示例日志,%s-%s','占位符参数','占位符参数')
- * @example log.debug('这是一个示例日志,{{name}}',{name: '占位符参数'})
- * @param msg 日志文本
- * @param args 参数列表或者对象
+ * 以多种方式记录调试信息
+ * @example
+ * debug('这是一个示例日志')
+ * debug('这是一个示例日志,%s-%s', '占位符参数', '占位符参数')
+ * debug('这是一个示例日志,{{name}}', { name: '占位符参数' })
  */
-export declare function debug(msg: String, ...args: unknown[] | {}): Promise
+export declare function debug(msg: string, ...args: unknown[]): Promise<void>
+export declare function debug(msg: string, args: object): Promise<void>
+
 /**
- * 默认日志记录器配置
- * 可直接覆盖此对象中的配置项来修改默认日志输出地址和名称
+ * 默认日志配置，可以覆盖此对象中的配置项以修改默认行为
  */
 export declare let defaultOptions: LoggerOptions
+
 /**
- * Worker 或者 Process 代理对象
- * 调用 logger._dispose() 函数手动关闭 Worker 或者 Process
- * 注意：一般不需要手动释放，在 TTL 参数指定的时间间隔内，没有新的函数调用则会自动释放
+ * Worker 或 Process 代理对象
+ * 调用 logger._dispose() 以手动关闭 Worker 或 Process
+ * 注意：通常无需手动释放，TTL时间内无新的调用会自动释放
  */
-export declare let logger: AsyncProxy
+export declare let logger: AsyncProxy<unknown>

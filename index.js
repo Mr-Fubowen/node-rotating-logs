@@ -5,8 +5,9 @@ const { join } = require('path')
 const { replace } = require('./src/common')
 
 let logger
+let logPath = join(process.cwd(), 'temp', 'log')
 let defaultOptions = {
-    path: join(process.cwd(), 'temp', 'log'),
+    path: logPath,
     name: 'app',
     isRotating: true,
     hasConsole: true,
@@ -16,7 +17,7 @@ let defaultOptions = {
         ttl: 60 * 1000,
         metedata: {},
         logFile: 'exector',
-        logPath: this.path
+        logPath: logPath
     }
 }
 let envOptions = {

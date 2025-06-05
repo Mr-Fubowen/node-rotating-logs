@@ -6,7 +6,7 @@ const { replace } = require('./src/common')
 
 let logger
 let defaultOptions = {
-    path: join(process.cwd(), 'logs'),
+    path: join(process.cwd(), 'temp', 'log'),
     name: 'app',
     isRotating: true,
     hasConsole: true,

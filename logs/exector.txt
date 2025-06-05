@@ -94,3 +94,26 @@
 {"level":30,"time":1749051478362,"pid":20780,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,9",{"hasConsole":true},true],"duration":"599 ms"}
 {"level":30,"time":1749051478362,"pid":20780,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,0",{"hasConsole":true},true],"duration":"605 ms"}
 {"level":30,"time":1749051537778,"pid":20780,"msg":"执行器已经关闭, 资源已经释放..."}
+{"level":30,"time":1749052059194,"pid":19652,"msg":"创建线程成功, 线程: 1"}
+{"level":30,"time":1749052059843,"pid":19652,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,1",{"hasConsole":true},true],"duration":"648 ms"}
+{"level":30,"time":1749052059845,"pid":19652,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,2",{"hasConsole":true},true],"duration":"647 ms"}
+{"level":30,"time":1749052059846,"pid":19652,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,3",{"hasConsole":true},true],"duration":"648 ms"}
+{"level":30,"time":1749052059846,"pid":19652,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,4",{"hasConsole":true},true],"duration":"649 ms"}
+{"level":30,"time":1749052059846,"pid":19652,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,5",{"hasConsole":true},true],"duration":"648 ms"}
+{"level":30,"time":1749052059846,"pid":19652,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,6",{"hasConsole":true},true],"duration":"648 ms"}
+{"level":30,"time":1749052059847,"pid":19652,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,7",{"hasConsole":true},true],"duration":"649 ms"}
+{"level":30,"time":1749052059847,"pid":19652,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,8",{"hasConsole":true},true],"duration":"649 ms"}
+{"level":30,"time":1749052059847,"pid":19652,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,9",{"hasConsole":true},true],"duration":"648 ms"}
+{"level":30,"time":1749052059847,"pid":19652,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,0",{"hasConsole":true},true],"duration":"660 ms"}
+{"level":30,"time":1749130277164,"pid":8728,"msg":"创建线程成功, 线程: 1"}
+{"level":30,"time":1749130278036,"pid":8728,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,1",{"hasConsole":true},true],"duration":"871 ms"}
+{"level":30,"time":1749130278037,"pid":8728,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,2",{"hasConsole":true},true],"duration":"871 ms"}
+{"level":30,"time":1749130278038,"pid":8728,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,3",{"hasConsole":true},true],"duration":"870 ms"}
+{"level":30,"time":1749130278038,"pid":8728,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,4",{"hasConsole":true},true],"duration":"870 ms"}
+{"level":30,"time":1749130278038,"pid":8728,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,5",{"hasConsole":true},true],"duration":"849 ms"}
+{"level":30,"time":1749130278038,"pid":8728,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,6",{"hasConsole":true},true],"duration":"847 ms"}
+{"level":30,"time":1749130278038,"pid":8728,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,7",{"hasConsole":true},true],"duration":"846 ms"}
+{"level":30,"time":1749130278039,"pid":8728,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,8",{"hasConsole":true},true],"duration":"847 ms"}
+{"level":30,"time":1749130278039,"pid":8728,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,9",{"hasConsole":true},true],"duration":"846 ms"}
+{"level":30,"time":1749130278039,"pid":8728,"isAsync":true,"prop":"appendRotatingFile","args":["D:\\node\\node-rotating-logs\\logs","app","INF","这是一个测试日志,0",{"hasConsole":true},true],"duration":"883 ms"}
+{"level":30,"time":1749130337212,"pid":8728,"msg":"执行器已经关闭, 资源已经释放..."}

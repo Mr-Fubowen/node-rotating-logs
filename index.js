@@ -5,26 +5,32 @@ const { join } = require('path')
 const { replace } = require('./src/common')
 
 let logger
-
-function createLogger(name, options) {
-    let opts = {
-        path: join(process.cwd(), 'logs'),
-        name: name || 'app',
-        isRotating: true,
-        hasConsole: true,
-        executor: 'Worker',
-        executorOptions: {
-            ttl: 60 * 1000,
-            metedata: {},
-            logFile: 'exector',
-            logPath: this.path
-        }
+let defaultOptions = {
+    path: join(process.cwd(), 'logs'),
+    name: 'app',
+    isRotating: true,
+    hasConsole: true,
+    debug: false,
+    executor: 'Worker',
+    executorOptions: {
+        ttl: 60 * 1000,
+        metedata: {},
+        logFile: 'exector',
+        logPath: this.path
     }
-    merge(opts, options)
-    if (!logger) {
-        const path = join(__dirname, './src/logger.js')
-        logger = requireScript(path, opts.executor, opts.executorOptions)
-    }
+}
+let envOptions = {
+    path: process.env.NODE_LOG_PATH,
+    name: process.env.NODE_LOG_NAME,
+    debug: process.env.NODE_LOG_DEBUG
+}
+function loadLogger(opts) {
+    const path = join(__dirname, './src/logger.js')
+    return requireScript(path, opts.executor, opts.executorOptions)
+}
+function createLogger(options) {
+    let opts = merge({}, defaultOptions, envOptions, options)
+    logger ||= loadLogger(opts)
     return {
         async append(level, msg, args) {
             let text = msg
@@ -50,12 +56,18 @@ function createLogger(name, options) {
         },
         async warning(msg, ...args) {
             return this.append('WAN', msg, args)
+        },
+        async debug(msg, ...args) {
+            if (opts.debug) {
+                return this.append('DBG', msg, args)
+            }
         }
     }
 }
-const app = createLogger('app', false, true)
+const app = createLogger()
 
 module.exports = {
     createLogger,
+    defaultOptions,
     ...app
 }

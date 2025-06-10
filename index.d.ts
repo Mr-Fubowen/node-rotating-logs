@@ -57,6 +57,10 @@ export interface LoggerOptions {
 
 export interface Logger {
     /**
+     * 关闭此日志记录器，释放相关文件流
+     */
+    close(): Promise<void>
+    /**
      * 输出信息级别日志
      * @param msg 日志文本
      * @param args 参数列表或对象
@@ -151,3 +155,15 @@ export declare let defaultOptions: LoggerOptions
  * 注意：通常无需手动释放，TTL时间内无新的调用会自动释放
  */
 export declare let logger: AsyncProxy<unknown>
+
+/**
+ * 关闭默认日志记录器，释放相关文件流
+ * 日志线程有 ttl(60) 秒的心跳，因此程序执行完毕后，会有 ttl 秒的阻塞时间，调用 shutdown 直接关闭日志线程
+ * shutdown 调用后，再次调用日志相关方法会重新创建日志线程
+ */
+export declare function close(): Promise<void>
+
+/**
+ * 关闭日志线程
+ */
+export declare function shutdown(): Promise<void>

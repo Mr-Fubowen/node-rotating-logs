@@ -10,14 +10,17 @@ const streams = new Map()
 async function createFileStream(root, type, options) {
     const { isRotating, level } = options || {}
     const id = type + '-' + level
-    let stream = streams.get(id)
-    if (stream) {
-        return stream
+    let item = streams.get(id)
+    if (item) {
+        return item
+    }
+    item = {
+        id
     }
     const path = join(root, type)
     const name = level + '.txt'
     if (isRotating) {
-        stream = rfs.createStream(name, {
+        item.stream = rfs.createStream(name, {
             path: path,
             size: '10M',
             interval: '1M',
@@ -26,13 +29,13 @@ async function createFileStream(root, type, options) {
         })
     } else {
         await fs.ensureDir(path)
-        stream = fs.createWriteStream(join(path, name), { encoding: 'utf-8' })
+        item.stream = fs.createWriteStream(join(path, name), { encoding: 'utf-8' })
     }
-    streams.set(id, stream)
-    return stream
+    streams.set(id, item)
+    return item
 }
 async function appendFile(root, name, level, text) {
-    const stream = await createFileStream(root, name, { level })
+    const { id, stream } = await createFileStream(root, name, { level })
     const msg = toFormat(level, text)
     await new Promise((resolve, reject) => {
         stream.write(msg, error => {
@@ -45,9 +48,10 @@ async function appendFile(root, name, level, text) {
     if (options?.hasConsole) {
         appendConsole(level, text)
     }
+    return id
 }
 async function appendRotatingFile(root, name, level, text, options) {
-    const stream = await createFileStream(root, name, { isRotating: true, level })
+    const { id, stream } = await createFileStream(root, name, { isRotating: true, level })
     const msg = toFormat(level, text)
     await new Promise((resolve, reject) => {
         stream.write(msg, error => {
@@ -60,6 +64,7 @@ async function appendRotatingFile(root, name, level, text, options) {
     if (options?.hasConsole) {
         appendConsole(level, text)
     }
+    return id
 }
 function appendConsole(level, text) {
     let time = colors('grey', now())
@@ -78,12 +83,28 @@ function appendConsole(level, text) {
     const msg = util.format('%s [%s] %s', time, type, text)
     console.log(msg)
 }
-async function close(name) {
-    if (name) {
-        streams.get(name)?.end()
+function toTask(item) {
+    return new Promise(resolve => {
+        let { id, stream } = item
+        streams.delete(id)
+        if (stream.destroyed || stream.closed) {
+            resolve()
+        } else {
+            stream.end(resolve)
+        }
+    })
+}
+async function close(id) {
+    let tasks = []
+    if (id) {
+        let item = streams.get(id)
+        if (item) {
+            tasks.push(toTask(item))
+        }
     } else {
-        streams.forEach(stream => stream.end())
+        streams.forEach(item => tasks.push(toTask(item)))
     }
+    return Promise.all(tasks)
 }
 
 module.exports = {

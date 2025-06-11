@@ -31,7 +31,7 @@ function loadLogger(opts) {
 }
 function createLogger(options) {
     let opts = merge({}, defaultOptions, envOptions, options)
-    logger ||= loadLogger(opts)
+    let ids = new Set()
     return {
         async append(level, msg, args) {
             let text = msg
@@ -43,11 +43,14 @@ function createLogger(options) {
             let other = {
                 hasConsole: opts.hasConsole
             }
+            logger ||= loadLogger(opts)
+            let id
             if (opts.isRotating) {
-                return logger.appendRotatingFile(opts.path, opts.name, level, text, other, true)
+                id = await logger.appendRotatingFile(opts.path, opts.name, level, text, other, true)
             } else {
-                return logger.appendFile(opts.path, opts.name, level, text, other, true)
+                id = await logger.appendFile(opts.path, opts.name, level, text, other, true)
             }
+            ids.add(id)
         },
         async info(msg, ...args) {
             return this.append('INF', msg, args)
@@ -63,6 +66,11 @@ function createLogger(options) {
                 return this.append('DBG', msg, args)
             }
         },
+        async close() {
+            for (const id of ids.values()) {
+                await logger.close(id, true)
+            }
+        },
         async success(msg, ...args) {
             return this.append('SUC', msg, args)
         }
@@ -73,5 +81,10 @@ const app = createLogger()
 module.exports = {
     createLogger,
     defaultOptions,
-    ...app
+    ...app,
+    logger,
+    async shutdown() {
+        await logger?._dispose()
+        logger = null
+    }
 }

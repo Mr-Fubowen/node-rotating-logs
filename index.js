@@ -62,6 +62,9 @@ function createLogger(options) {
             if (opts.debug) {
                 return this.append('DBG', msg, args)
             }
+        },
+        async success(msg, ...args) {
+            return this.append('SUC', msg, args)
         }
     }
 }

@@ -84,6 +84,15 @@ export interface Logger {
     warning(msg: string, args: object): Promise<void>
 
     /**
+     * 输出成功级别日志
+     * @param msg 日志文本
+     * @param args 参数列表或对象
+     * @returns Promise<void>
+     */
+    success(msg: string, ...args: unknown[]): Promise<void>
+    success(msg: string, args: object): Promise<void>
+
+    /**
      * 输出调试信息
      * @param msg 日志文本
      * @param args 参数列表或对象
@@ -129,6 +138,16 @@ export declare function error(msg: string, args: object): Promise<void>
  */
 export declare function warning(msg: string, ...args: unknown[]): Promise<void>
 export declare function warning(msg: string, args: object): Promise<void>
+
+/**
+ * 以多种方式记录成功日志
+ * @example
+ * success('这是一个示例日志')
+ * success('这是一个示例日志,%s-%s', '占位符参数', '占位符参数')
+ * success('这是一个示例日志,{{name}}', { name: '占位符参数' })
+ */
+export declare function success(msg: string, ...args: unknown[]): Promise<void>
+export declare function success(msg: string, args: object): Promise<void>
 
 /**
  * 以多种方式记录调试信息

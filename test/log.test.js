@@ -6,6 +6,7 @@ async function test() {
         log.error('这是一个测试日志,%s', i)
         log.warning('这是一个测试日志,{{i}}', { i })
         log.debug('这是一个测试日志,{{i}}', { i })
+        log.success('这是一个测试日志,{{i}}', { i })
     }
 }
 test()

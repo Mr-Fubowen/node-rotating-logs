@@ -14,6 +14,7 @@ let defaultOptions = {
     debug: false,
     executor: 'Worker',
     executorOptions: {
+        name: 'logger',
         ttl: 60 * 1000,
         metedata: {},
         logFile: 'exector',

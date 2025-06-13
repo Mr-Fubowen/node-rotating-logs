@@ -35,23 +35,27 @@ function createLogger(options) {
     let ids = new Set()
     return {
         async append(level, msg, args) {
-            let text = msg
-            if (args && args.length == 1 && isPlainObject(args.at(0))) {
-                text = replace(msg, args.at(0))
-            } else {
-                text = format(msg, ...args)
+            try {
+                let text = msg
+                if (args && args.length == 1 && isPlainObject(args.at(0))) {
+                    text = replace(msg, args.at(0))
+                } else {
+                    text = format(msg, ...args)
+                }
+                let other = {
+                    hasConsole: opts.hasConsole
+                }
+                logger ||= loadLogger(opts)
+                let id
+                if (opts.isRotating) {
+                    id = await logger.appendRotatingFile(opts.path, opts.name, level, text, other, true)
+                } else {
+                    id = await logger.appendFile(opts.path, opts.name, level, text, other, true)
+                }
+                ids.add(id)
+            } catch (error) {
+                console.error('日志记录失败:', error)
             }
-            let other = {
-                hasConsole: opts.hasConsole
-            }
-            logger ||= loadLogger(opts)
-            let id
-            if (opts.isRotating) {
-                id = await logger.appendRotatingFile(opts.path, opts.name, level, text, other, true)
-            } else {
-                id = await logger.appendFile(opts.path, opts.name, level, text, other, true)
-            }
-            ids.add(id)
         },
         async info(msg, ...args) {
             return this.append('INF', msg, args)
@@ -71,6 +75,9 @@ function createLogger(options) {
             for (const id of ids.values()) {
                 await logger.close(id, true)
             }
+        },
+        async success(msg, ...args) {
+            return this.append('SUC', msg, args)
         }
     }
 }

@@ -68,16 +68,23 @@ async function appendRotatingFile(root, name, level, text, options) {
 }
 function appendConsole(level, text) {
     let time = colors('grey', now())
-    let type = colors('blue', level)
+    let type
     switch (level) {
         case 'INF':
             text = colors('blue', text)
+            type = colors('blue', level)
             break
         case 'WAN':
             text = colors('yellow', text)
+            type = colors('yellow', level)
             break
         case 'ERR':
             text = colors('red', text)
+            type = colors('red', level)
+            break
+        case 'SUC':
+            text = colors('green', text)
+            type = colors('green', level)
             break
     }
     const msg = util.format('%s [%s] %s', time, type, text)

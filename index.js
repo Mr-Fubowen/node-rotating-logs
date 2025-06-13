@@ -3,6 +3,7 @@ const { format } = require('util')
 const { requireScript } = require('process-worker-executor')
 const { join } = require('path')
 const { replace } = require('./src/common')
+const { threadId } = require('worker_threads')
 
 let logger
 let logPath = join(process.cwd(), 'temp', 'log')
@@ -14,7 +15,7 @@ let defaultOptions = {
     debug: false,
     executor: 'Worker',
     executorOptions: {
-        name: 'logger',
+        name: 'thread-' + threadId + '-logger',
         ttl: 60 * 1000,
         metedata: {},
         logFile: 'exector',
@@ -48,7 +49,14 @@ function createLogger(options) {
                 logger ||= loadLogger(opts)
                 let id
                 if (opts.isRotating) {
-                    id = await logger.appendRotatingFile(opts.path, opts.name, level, text, other, true)
+                    id = await logger.appendRotatingFile(
+                        opts.path,
+                        opts.name,
+                        level,
+                        text,
+                        other,
+                        true
+                    )
                 } else {
                     id = await logger.appendFile(opts.path, opts.name, level, text, other, true)
                 }
